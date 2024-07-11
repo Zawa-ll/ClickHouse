@@ -8,6 +8,9 @@ SELECT generateSnowflakeID(1) = generateSnowflakeID(1); -- enabled common subexp
 
 SELECT generateSnowflakeID(1, 2); -- { serverError NUMBER_OF_ARGUMENTS_DOESNT_MATCH }
 
+SELECT generateSnowflakeID(); -- Test generateSnowflakeID with default machine_id
+SELECT generateSnowflakeID(123, 'dummy_expr'); -- Test generateSnowflakeID with explicit machine_id
+
 SELECT count(*)
 FROM
 (
