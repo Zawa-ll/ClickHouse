@@ -164,11 +164,6 @@ public:
 
     DataTypePtr getReturnTypeImpl(const ColumnsWithTypeAndName & arguments) const override
     {
-        if (arguments.size() > 2)
-        {
-            throw Exception("Number of arguments for function " + getName() + " doesn't match: passed " + toString(arguments.size()) + ", should be 0, 1, or 2.", ErrorCodes::BAD_ARGUMENTS);
-        }
-
         FunctionArgumentDescriptors mandatory_args;
         FunctionArgumentDescriptors optional_args{
             {"expr", nullptr, nullptr, "Arbitrary expression"},
@@ -181,11 +176,6 @@ public:
 
     ColumnPtr executeImpl(const ColumnsWithTypeAndName & arguments, const DataTypePtr &, size_t input_rows_count) const override
     {
-        if (arguments.size() > 2)
-        {
-            throw Exception("Number of arguments for function " + getName() + " doesn't match: passed " + toString(arguments.size()) + ", should be 0, 1, or 2.", ErrorCodes::BAD_ARGUMENTS);
-        }
-
         auto col_res = ColumnVector<UInt64>::create();
         typename ColumnVector<UInt64>::Container & vec_to = col_res->getData();
         vec_to.resize(input_rows_count);
