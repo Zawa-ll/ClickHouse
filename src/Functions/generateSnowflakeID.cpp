@@ -166,7 +166,7 @@ public:
     {
         if (arguments.size() > 2)
         {
-            throw Exception("Number of arguments for function " + getName() + " doesn't match: passed " + toString(arguments.size()) + ", should be 0, 1, or 2.", ErrorCodes::NUMBER_OF_ARGUMENTS_DOESNT_MATCH);
+            throw Exception("Number of arguments for function " + getName() + " doesn't match: passed " + toString(arguments.size()) + ", should be 0, 1, or 2.", ErrorCodes::BAD_ARGUMENTS);
         }
 
         FunctionArgumentDescriptors mandatory_args;
@@ -183,7 +183,7 @@ public:
     {
         if (arguments.size() > 2)
         {
-            throw Exception("Number of arguments for function " + getName() + " doesn't match: passed " + toString(arguments.size()) + ", should be 0, 1, or 2.", ErrorCodes::NUMBER_OF_ARGUMENTS_DOESNT_MATCH);
+            throw Exception("Number of arguments for function " + getName() + " doesn't match: passed " + toString(arguments.size()) + ", should be 0, 1, or 2.", ErrorCodes::BAD_ARGUMENTS);
         }
 
         auto col_res = ColumnVector<UInt64>::create();
