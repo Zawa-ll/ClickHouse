@@ -5,6 +5,7 @@
 #include <Core/ServerUUID.h>
 #include <Common/Logger.h>
 #include <Common/logger_useful.h>
+#include <Common/ErrorCodes.h>
 #include "base/types.h"
 
 
