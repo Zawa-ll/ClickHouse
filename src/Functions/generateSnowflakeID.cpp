@@ -23,7 +23,7 @@ namespace
 |0|                         timestamp                           |
 ├─┼                 ┼─┼─┼─┼─┼─┼─┼─┼─┼─┼─┼─┼─┼─┼─┼─┼─┼─┼─┼─┼─┼─┼─┤
 |                   |     machine_id    |    machine_seq_num    |
-└─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┘
+└─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┘
 
 - The first 41 (+ 1 top zero bit) bits is the timestamp (millisecond since Unix epoch 1 Jan 1970)
 - The middle 10 bits are the machine ID
@@ -163,6 +163,11 @@ public:
 
     DataTypePtr getReturnTypeImpl(const ColumnsWithTypeAndName & arguments) const override
     {
+        if (arguments.size() > 2)
+        {
+            throw Exception("Number of arguments for function " + getName() + " doesn't match: passed " + toString(arguments.size()) + ", should be 0, 1, or 2.", ErrorCodes::NUMBER_OF_ARGUMENTS_DOESNT_MATCH);
+        }
+
         FunctionArgumentDescriptors mandatory_args;
         FunctionArgumentDescriptors optional_args{
             {"expr", nullptr, nullptr, "Arbitrary expression"},
@@ -175,6 +180,11 @@ public:
 
     ColumnPtr executeImpl(const ColumnsWithTypeAndName & arguments, const DataTypePtr &, size_t input_rows_count) const override
     {
+        if (arguments.size() > 2)
+        {
+            throw Exception("Number of arguments for function " + getName() + " doesn't match: passed " + toString(arguments.size()) + ", should be 0, 1, or 2.", ErrorCodes::NUMBER_OF_ARGUMENTS_DOESNT_MATCH);
+        }
+
         auto col_res = ColumnVector<UInt64>::create();
         typename ColumnVector<UInt64>::Container & vec_to = col_res->getData();
         vec_to.resize(input_rows_count);
